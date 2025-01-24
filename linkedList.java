@@ -3,9 +3,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public class linkedList {
-    Node head;
+    private Node head;
     private int size;
     private int dsize;
+    private dNode head2;
+    private dNode tail;
+
 
     class Node{
         String data;
@@ -29,6 +32,90 @@ public class linkedList {
         }
 
     }
+    public int get_size_of_doubly_linked_list(){
+        return dsize;
+    }
+
+
+    public void push_front(String data){
+        dNode newNode=new dNode(data);
+        dsize++;
+        if(head2==null){
+            tail=newNode;
+            head2=newNode;
+        }else{
+            newNode.next=head2;
+            head2.previous=newNode;
+            head2=newNode;
+
+        }
+    }
+    public void push_back(String data){
+        dNode newNode=new dNode(data);
+        dsize++;
+        if(head2==null){
+            tail=newNode;
+            head2=newNode;
+            return;
+        }else{
+            newNode.previous=tail;
+            tail.next=newNode;
+            tail=newNode;
+
+        }
+    }
+
+    public void pop_front() {
+//        dNode temp=head2; in case of c++
+        if(head2==null){
+            System.out.print("your list is empty");
+            return;
+        }
+        dsize--;
+        if(head2==tail){
+            head2=null;
+            tail=null;
+            return;
+        }
+        head2 = head2.next;
+        head2.previous = null;
+//            temp.next=null;
+//            delete temp;
+    }
+
+
+    public void pop_back(){
+        if(tail==null){
+            System.out.println("your list is empty");
+            return;
+        }
+        dsize--;
+        if(head2==tail){
+            head2=null;
+            tail=null;
+            return;
+        }
+        tail=tail.previous;
+        tail.next=null;
+
+    }
+
+
+    public void print2() {
+        if (head2 == null) {
+            System.out.print("linked list is empty");
+            return;
+        }
+        dNode currNode = head2;
+        while (currNode != null) {
+            System.out.print(currNode.data + " ->");
+            currNode = currNode.next;
+        }
+        System.out.println("Null");
+
+    }
+
+
         public void add_First(String data) {
             Node newNode = new Node(data);
             if (head == null) {
@@ -144,6 +231,22 @@ public class linkedList {
             for (String s : l2) {
                 System.out.print(s);
             }
+
+
+            linkedList doubly_linked_list=new linkedList();
+            linkedList doubly_linked_list_empty=new linkedList();
+
+            doubly_linked_list.push_front("this");
+            doubly_linked_list.push_front("is");
+            doubly_linked_list.push_back("doubly");
+            doubly_linked_list.push_back("linked list");
+            doubly_linked_list.pop_front();
+            doubly_linked_list.pop_back();
+            doubly_linked_list.get_size_of_doubly_linked_list();
+            doubly_linked_list_empty.pop_front();
+            doubly_linked_list_empty.pop_back();
+            doubly_linked_list_empty.get_size_of_doubly_linked_list();
+            doubly_linked_list.print2();
         }
 
     }
